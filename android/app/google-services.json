@@ -1,0 +1,50 @@
+{
+  "project_info": {
+    "project_number": "1047047440129",
+    "firebase_url": "https://my-car-1015.firebaseio.com",
+    "project_id": "my-car-1015",
+    "storage_bucket": "my-car-1015.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1047047440129:android:d4b90841898860d2",
+        "android_client_info": {
+          "package_name": "com.willcrisis.abastecame"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1047047440129-n2dbnpuljijhr8fpjhvulu8ii24774k7.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "1047047440129-m6ur9503v292mbghva36vus0jb1t5q0l.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "1047047440129-n2dbnpuljijhr8fpjhvulu8ii24774k7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBz08-ZLOpR2Q-4rJYCafD6zUj85JBic0c"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
