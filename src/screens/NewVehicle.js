@@ -9,12 +9,15 @@ import {
   Input,
   Label,
   Button,
+  Toast,
 } from 'native-base';
 import firebase from 'react-native-firebase';
 import Header from '../components/Header';
 import NavigateableComponent from './NavigateableComponent';
 
 export const ROUTE_NAME = 'NewVehicle';
+
+const validateVehicle = ({name, manufacturer, model}) => name && manufacturer && model;
 
 export default class NewVehicle extends NavigateableComponent {
   static navigationOptions = ({ navigation }) => ({
@@ -48,16 +51,20 @@ export default class NewVehicle extends NavigateableComponent {
 
   save = async () => {
     const { vehicle } = this.state;
-    try {
-      await this.vehiclesRef.add({
-        ...vehicle,
-        users: {
-          '3eqzPiYvwYNHvQLHIm2BaO7jUTs1': true,
-        },
-      });
-      this.goTo('SelectVehicle');
-    } catch (err) {
-      console.warn(err);
+    if (validateVehicle(vehicle)) {
+      try {
+        await this.vehiclesRef.add({
+          ...vehicle,
+          users: {
+            '3eqzPiYvwYNHvQLHIm2BaO7jUTs1': true,
+          },
+        });
+        this.goTo('SelectVehicle');
+      } catch (err) {
+        console.warn(err);
+      }
+    } else {
+      Toast.show({text: 'Please fill all fields.'})
     }
   };
 
