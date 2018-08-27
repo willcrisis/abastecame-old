@@ -13,6 +13,12 @@ import { ROUTE_NAME as NEW_VEHICLE_ROUTE } from './NewVehicle';
 export const ROUTE_NAME = 'SelectVehicle';
 
 export default class SelectVehicle extends NavigateableComponent {
+  static navigationOptions = ({ navigation }) => ({
+    header: (
+      <Header title="Vehicles"/>
+    )
+  });
+
   constructor() {
     super();
     this.userRef = firebase.firestore().doc('users/3eqzPiYvwYNHvQLHIm2BaO7jUTs1');
@@ -66,7 +72,6 @@ export default class SelectVehicle extends NavigateableComponent {
 
     return (
       <Container>
-        <Header title="Vehicles"/>
         <Content>
           {vehicles.map(vehicle => (
             <VehicleCard

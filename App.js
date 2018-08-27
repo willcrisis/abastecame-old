@@ -10,7 +10,6 @@ const LoggedStack = createStackNavigator(
   },
   {
     initialRouteName: SELECT_VEHICLE_ROUTE,
-    headerMode: 'none',
   }
 );
 
