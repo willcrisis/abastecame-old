@@ -46,7 +46,8 @@ export default class VehicleCard extends Component {
         name,
         manufacturer,
         model,
-      }
+      },
+      onPress
     } = this.props;
 
     const {
@@ -59,13 +60,13 @@ export default class VehicleCard extends Component {
 
     return (
       <Card>
-        <CardItem cardBody style={styles.cardImage}>
+        <CardItem button={!!onPress} onPress={onPress} cardBody style={styles.cardImage}>
           {icon
             ? <Icon type="Entypo" name={icon || 'image'} style={styles.icon}/>
             : <Image source={imageToDisplay} style={styles.image}/>
           }
         </CardItem>
-        <CardItem>
+        <CardItem button={!!onPress} onPress={onPress}>
           <Body>
           <Text>
             {name}

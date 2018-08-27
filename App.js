@@ -1,13 +1,15 @@
 import React from 'react';
 import { createStackNavigator } from 'react-navigation';
-import SelectVehicleScreen from './src/screens/SelectVehicle';
+import SelectVehicleScreen, { ROUTE_NAME as SELECT_VEHICLE_ROUTE } from './src/screens/SelectVehicle';
+import NewVehicleScreen, { ROUTE_NAME as NEW_VEHICLE_ROUTE} from './src/screens/NewVehicle';
 
 const LoggedStack = createStackNavigator(
   {
-    SelectVehicle: SelectVehicleScreen
+    [SELECT_VEHICLE_ROUTE]: SelectVehicleScreen,
+    [NEW_VEHICLE_ROUTE]: NewVehicleScreen,
   },
   {
-    initialRouteName: 'SelectVehicle',
+    initialRouteName: SELECT_VEHICLE_ROUTE,
     headerMode: 'none',
   }
 );
