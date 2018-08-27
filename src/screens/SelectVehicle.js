@@ -21,7 +21,7 @@ export default class SelectVehicle extends NavigateableComponent {
 
   constructor() {
     super();
-    this.userRef = firebase.firestore().doc('users/3eqzPiYvwYNHvQLHIm2BaO7jUTs1');
+    this.vehiclesRef = firebase.firestore().collection('vehicles').where('users.3eqzPiYvwYNHvQLHIm2BaO7jUTs1', '==', true);
 
     this.state = {
       vehicles: [],
@@ -30,21 +30,14 @@ export default class SelectVehicle extends NavigateableComponent {
   }
 
   componentDidMount() {
-    this.unsubscribeUser = this.userRef.onSnapshot(docSnapshot => {
+    this.unsubscribeVehicles = this.vehiclesRef.onSnapshot(snapshot => {
       const vehicles = [];
-
-      const user = docSnapshot.data();
-      user.vehicles.forEach(async vehicleRef => {
-        const ref = await vehicleRef.get();
-        this.setState(({ vehicles }) => ({
-          vehicles: [
-            ...vehicles,
-            {
-              ...ref.data(),
-              id: vehicleRef.id,
-            }
-          ]
-        }));
+      snapshot.forEach(vehicleRef => {
+        vehicles.push({
+            ...vehicleRef.data(),
+            id: vehicleRef.id,
+          }
+        )
       });
 
       this.setState({
@@ -52,10 +45,12 @@ export default class SelectVehicle extends NavigateableComponent {
         loading: false,
       });
     });
+
+
   }
 
   componentWillUnmount() {
-    this.unsubscribeUser();
+    this.unsubscribeVehicles();
   }
 
   render() {
@@ -66,7 +61,7 @@ export default class SelectVehicle extends NavigateableComponent {
 
     if (loading) {
       return (
-        <Spinner />
+        <Spinner/>
       )
     }
 
@@ -82,7 +77,7 @@ export default class SelectVehicle extends NavigateableComponent {
           <VehicleCard
             key="add-new"
             icon="plus"
-            vehicle={{name: 'Add New Vehicle'}}
+            vehicle={{ name: 'Add New Vehicle' }}
             onPress={() => this.goTo(NEW_VEHICLE_ROUTE)}
           />
         </Content>

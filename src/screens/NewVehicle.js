@@ -1,30 +1,98 @@
-import React, { Component } from 'react';
+import React from 'react';
+import { StyleSheet } from 'react-native';
 import {
   Container,
   Content,
   Text,
+  Form,
+  Item,
+  Input,
+  Label,
+  Button,
 } from 'native-base';
 import firebase from 'react-native-firebase';
 import Header from '../components/Header';
+import NavigateableComponent from './NavigateableComponent';
 
 export const ROUTE_NAME = 'NewVehicle';
 
-export default class NewVehicle extends Component {
+export default class NewVehicle extends NavigateableComponent {
   static navigationOptions = ({ navigation }) => ({
     header: (
       <Header title="New Vehicle"/>
     )
   });
 
+  constructor(props) {
+    super(props);
+
+    this.firestore = firebase.firestore();
+
+    this.vehiclesRef = this.firestore.collection('vehicles');
+
+    this.state = {
+      vehicle: {
+        name: '',
+        manufacturer: '',
+        model: '',
+      }
+    };
+  }
+
+  updateField = (field, value) => this.setState(({ vehicle }) => ({
+    vehicle: {
+      ...vehicle,
+      [field]: value,
+    }
+  }));
+
+  save = async () => {
+    const { vehicle } = this.state;
+    try {
+      await this.vehiclesRef.add({
+        ...vehicle,
+        users: {
+          '3eqzPiYvwYNHvQLHIm2BaO7jUTs1': true,
+        },
+      });
+      this.goTo('SelectVehicle');
+    } catch (err) {
+      console.warn(err);
+    }
+  };
+
   render() {
     return (
       <Container>
-        <Content>
-          <Text>
-            Hey!
-          </Text>
+        <Content padder>
+          <Form style={styles.form}>
+            <Item floatingLabel>
+              <Label>Name</Label>
+              <Input onChangeText={value => this.updateField('name', value)}/>
+            </Item>
+            <Item floatingLabel>
+              <Label>Manufacturer</Label>
+              <Input onChangeText={value => this.updateField('manufacturer', value)}/>
+            </Item>
+            <Item floatingLabel>
+              <Label>Model</Label>
+              <Input onChangeText={value => this.updateField('model', value)}/>
+            </Item>
+          </Form>
+          <Button onPress={this.save} full>
+            <Text>
+              Save
+            </Text>
+          </Button>
         </Content>
       </Container>
     )
   }
 }
+
+const styles = StyleSheet.create({
+  form: {
+    flex: 1,
+    marginBottom: 30,
+  }
+});

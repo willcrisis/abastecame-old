@@ -35,7 +35,7 @@ export default class VehicleCard extends Component {
         imageUrl
       });
     } catch(err) {
-      console.warn(err);
+      if (err.code !== 'storage/object-not-found') console.warn(err);
     }
   };
 
