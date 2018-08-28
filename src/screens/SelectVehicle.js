@@ -1,4 +1,5 @@
 import React from 'react';
+import { AsyncStorage } from 'react-native';
 import {
   Container,
   Content,
@@ -9,6 +10,7 @@ import NavigateableComponent from './NavigateableComponent';
 import VehicleCard from '../components/VehicleCard';
 import Header from '../components/Header';
 import { ROUTE_NAME as NEW_VEHICLE_ROUTE } from './NewVehicle';
+import { ROUTE_NAME as REFUELLING_LIST_ROUTE } from './RefuellingList';
 
 export const ROUTE_NAME = 'SelectVehicle';
 
@@ -45,13 +47,16 @@ export default class SelectVehicle extends NavigateableComponent {
         loading: false,
       });
     });
-
-
   }
 
   componentWillUnmount() {
     this.unsubscribeVehicles();
   }
+
+  selectVehicle = async (key) => {
+    await AsyncStorage.setItem('vehicleKey', key);
+    this.goTo(REFUELLING_LIST_ROUTE, { vehicleKey: key });
+  };
 
   render() {
     const {
@@ -72,6 +77,7 @@ export default class SelectVehicle extends NavigateableComponent {
             <VehicleCard
               key={vehicle.id}
               vehicle={vehicle}
+              onPress={() => this.selectVehicle(vehicle.id)}
             />
           ))}
           <VehicleCard

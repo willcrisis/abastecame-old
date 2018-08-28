@@ -1,9 +1,9 @@
 import React from 'react';
-import SelectVehicle from './SelectVehicle';
+import RefuellingList from './RefuellingList';
 
 import renderer from 'react-test-renderer';
 
 it('renders without crashing', () => {
-  const rendered = renderer.create(<SelectVehicle />).toJSON();
+  const rendered = renderer.create(<RefuellingList />).toJSON();
   expect(rendered).toBeTruthy();
 });
