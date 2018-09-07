@@ -9,7 +9,7 @@ import firebase from 'react-native-firebase';
 
 const SelectVehicleStack = createStackNavigator(
   {
-    [SELECT_VEHICLE_ROUTE]: (props) => <SelectVehicleScreen {...props} />,
+    [SELECT_VEHICLE_ROUTE]: SelectVehicleScreen,
     [NEW_VEHICLE_ROUTE]: NewVehicleScreen,
   },
   {
@@ -19,7 +19,7 @@ const SelectVehicleStack = createStackNavigator(
 
 const RefuellingStack = createStackNavigator(
   {
-    [REFUELLING_LIST_ROUTE]: (props) => <RefuellingListScreen {...props} />,
+    [REFUELLING_LIST_ROUTE]: RefuellingListScreen,
   },
   {
     initialRouteName: REFUELLING_LIST_ROUTE,
@@ -34,7 +34,7 @@ export default class App extends React.Component {
 
   async componentDidMount() {
     //await firebase.auth().signInAndRetrieveDataWithEmailAndPassword('fakeuser@willcrisis.com', '123456');
-    // await AsyncStorage.removeItem('vehicleKey');
+    await AsyncStorage.removeItem('vehicleKey');
     const selectedVehicle = await AsyncStorage.getItem('vehicleKey');
     this.setState({
       selectedVehicle,
@@ -43,7 +43,6 @@ export default class App extends React.Component {
   }
 
   onSelectVehicle = (selectedVehicle) => {
-    console.warn(selectedVehicle);
     this.setState({
       selectedVehicle,
     }, async () => {

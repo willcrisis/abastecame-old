@@ -10,7 +10,7 @@ export const ROUTE_NAME = 'RefuellingList';
 
 export default class RefuellingList extends NavigateableComponent {
   static navigationOptions = {
-    title: 'Refuellings'
+    title: 'Refuels'
   };
 
   render() {
