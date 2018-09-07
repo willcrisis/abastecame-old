@@ -12,7 +12,6 @@ import {
   Toast,
 } from 'native-base';
 import firebase from 'react-native-firebase';
-import Header from '../components/Header';
 import NavigateableComponent from './NavigateableComponent';
 
 export const ROUTE_NAME = 'NewVehicle';
@@ -20,11 +19,9 @@ export const ROUTE_NAME = 'NewVehicle';
 const validateVehicle = ({name, manufacturer, model}) => name && manufacturer && model;
 
 export default class NewVehicle extends NavigateableComponent {
-  static navigationOptions = ({ navigation }) => ({
-    header: (
-      <Header title="New Vehicle"/>
-    )
-  });
+  static navigationOptions = {
+    title: 'New Vehicle'
+  };
 
   constructor(props) {
     super(props);
@@ -59,7 +56,7 @@ export default class NewVehicle extends NavigateableComponent {
             '3eqzPiYvwYNHvQLHIm2BaO7jUTs1': true,
           },
         });
-        this.goTo('SelectVehicle');
+        this.goBack();
       } catch (err) {
         console.warn(err);
       }

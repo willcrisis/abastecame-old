@@ -8,22 +8,22 @@ import {
 import firebase from 'react-native-firebase';
 import NavigateableComponent from './NavigateableComponent';
 import VehicleCard from '../components/VehicleCard';
-import Header from '../components/Header';
 import { ROUTE_NAME as NEW_VEHICLE_ROUTE } from './NewVehicle';
 import { ROUTE_NAME as REFUELLING_LIST_ROUTE } from './RefuellingList';
 
 export const ROUTE_NAME = 'SelectVehicle';
 
 export default class SelectVehicle extends NavigateableComponent {
-  static navigationOptions = ({ navigation }) => ({
-    header: (
-      <Header title="Vehicles"/>
-    )
-  });
+  static navigationOptions = {
+    title: 'Vehicles'
+  };
 
   constructor() {
     super();
-    this.vehiclesRef = firebase.firestore().collection('vehicles').where('users.3eqzPiYvwYNHvQLHIm2BaO7jUTs1', '==', true);
+    this.vehiclesRef = firebase
+      .firestore()
+      .collection('vehicles')
+      .where('users.3eqzPiYvwYNHvQLHIm2BaO7jUTs1', '==', true);
 
     this.state = {
       vehicles: [],
@@ -54,8 +54,8 @@ export default class SelectVehicle extends NavigateableComponent {
   }
 
   selectVehicle = async (key) => {
-    await AsyncStorage.setItem('vehicleKey', key);
-    this.goTo(REFUELLING_LIST_ROUTE, { vehicleKey: key });
+    const { onSelectVehicle } = this.props.screenProps;
+    onSelectVehicle(key);
   };
 
   render() {
