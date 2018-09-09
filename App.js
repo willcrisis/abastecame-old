@@ -34,7 +34,7 @@ export default class App extends React.Component {
 
   async componentDidMount() {
     //await firebase.auth().signInAndRetrieveDataWithEmailAndPassword('fakeuser@willcrisis.com', '123456');
-    await AsyncStorage.removeItem('vehicleKey');
+    // await AsyncStorage.removeItem('vehicleKey');
     const selectedVehicle = await AsyncStorage.getItem('vehicleKey');
     this.setState({
       selectedVehicle,
